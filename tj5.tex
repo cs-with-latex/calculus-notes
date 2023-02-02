@@ -1,0 +1,67 @@
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+\usepackage{listings} 
+\usepackage{xcolor} 
+\lstset{
+    basicstyle=\tt,
+    keywordstyle=\color{purple}\bfseries,
+    identifierstyle=\color{brown!80!black},
+    commentstyle=\color{gray}
+    showstringspaces=false,
+    numbers = left,                
+    numberstyle = \small,               
+}
+\title{同济高数第五章笔记}
+\author{5eqn}
+\date{\today}
+\begin{document}
+  \maketitle
+  \section{定义}
+    定积分按照求面积极限定义。
+  \section{逼近}
+    有几种逼近方法：
+    \subsection{矩形法}
+      不做线性插值。
+    \subsection{梯形法}
+      有线性插值，
+      体现为削弱两头。
+    \subsection{辛普森法}
+      也叫抛物线法，每两格做一次抛物线插值。
+      不仅削弱两头，而且奇数（抛物线中间）权值更高。
+  \section{性质}
+    \subsection{线性}
+      包括单位元、可常量乘和可加性。
+    \subsection{有界判定}
+      被积函数有界，就可以构造出定积分结果的上界和下界。
+      只要能框住被积函数，积分结果也可以框住。
+    \subsection{中值定理}
+      用有界判定放缩之后，
+      加上连续函数介值定理即可。
+  \section{积分上限函数}
+    就是从一个原函数 $f$ 利用积分
+    构造出一个求导后等于原函数的函数的方法。
+    \[
+    F(x)=\int_{a}^{x} f(t)\mathrm{d}t 
+    .\] 
+    要对 $\int_{a}^{b} f(x)\mathrm{d}x $ 求值，
+    使用牛顿-莱布尼兹公式找到原函数的 $C=F(a)$ 即可。
+  \section{求值}
+    注意按照实际变量的值域改积分符号上的值域即可。
+  \section{反常积分}
+    把反常的地方通过极限变成正常积分即可。
+    \subsection{定义域无穷}
+      对无界方向的定义域取极限。
+    \subsection{值域无界}
+      对瑕点取单向极限，
+      本来要积到瑕点，
+      现在只需要积到瑕点附近即可。
+      注意可能要拆成多个积分段。
+    \subsection{审敛}
+      直接和反比例函数 $\frac{N}{x}$ 对比即可，
+      注意 $N$ 可以任意小。
+      注意如果要判断收敛，即使等于也不够，
+      因为积分出来是对数数量级，
+      所以要使用极限思想找到 $p > 1$ 的幂次，
+      使得 $\frac{N}{x^{p}}$ 满足要求。
+      对无界函数，位移一下反比例函数即可。
+      
+\end{document}
