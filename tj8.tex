@@ -1,0 +1,352 @@
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+\usepackage[margin=1in,xetex]{geometry}
+\usepackage{listings} 
+\usepackage{xcolor} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\newtheorem{definition}{定义}
+\newtheorem{theorem}{定理}
+\newtheorem{proof}{证明}
+\newtheorem{lemma}{引理}
+\lstset{
+  basicstyle=\tt,
+  keywordstyle=\color{purple}\bfseries,
+  identifierstyle=\color{brown!80!black},
+  commentstyle=\color{gray},
+  showstringspaces=false,
+  numbers=left,                
+  numberstyle=\small,               
+}
+\title{微分方程笔记}
+\author{5eqn}
+\date{\today}
+\begin{document}
+  \maketitle
+  \section{可分离变量的微分方程}
+    一阶微分方程通常可以分离变量变成
+    \[
+    \begin{aligned}
+    g\left(y\right)\mathrm{d}y=f\left(x\right)\mathrm{d}x.
+    \end{aligned}
+    \]
+    
+    例如对
+    \[
+    \begin{aligned}
+      \frac{\mathrm{d}y}{\mathrm{d}x}=2xy,
+    \end{aligned}
+    \]
+    可以变形为
+    \[
+    \begin{aligned}
+      \int \frac{\mathrm{d}y}{y}=2x \mathrm{d}x,
+    \end{aligned}
+    \]
+    解得
+    \[
+    \begin{aligned}
+      \ln \left| y \right|=x^{2}+C_1.
+    \end{aligned}
+    \]
+  \section{齐次方程}
+    对于齐次方程
+    \[
+    \begin{aligned}
+      \frac{\mathrm{d}y}{\mathrm{d}x}=\varphi\left(\frac{y}{x}\right),
+    \end{aligned}
+    \]
+    存在一种巧妙的换元方法把$\frac{\mathrm{d}y}{\mathrm{d}x}$拆开, 即
+    \[
+    \begin{aligned}
+      y=ux.
+    \end{aligned}
+    \]
+    
+    换元后, 方程变形为
+    \[
+    \begin{aligned}
+      u+x \frac{\mathrm{d}u}{\mathrm{d}x}=\varphi\left(u\right),
+    \end{aligned}
+    \]
+    便可以按照可分离变量的微分方程求解.
+
+    同时, 可以通过对$x$和$y$线性偏移, 例如令$u=x+1$, 来实现齐次化.
+
+    例如对
+    \[
+    \begin{aligned}
+      \left(2x+y-4\right)\mathrm{d}x+\left(x+y-1\right)\mathrm{d}y=0,
+    \end{aligned}
+    \]
+    令
+    \[
+    \begin{aligned}
+      \begin{cases}
+        x=X+h,\\y=Y+k,
+      \end{cases}
+    \end{aligned}
+    \]
+    得
+    \[
+    \begin{aligned}
+      \begin{cases}
+        h=3,\\k=-2,
+    因此令
+      \end{cases}
+    \end{aligned}
+    \]
+    因此原方程变为
+    \[
+    \begin{aligned}
+      \frac{\mathrm{d}Y}{\mathrm{d}X}&=-\frac{2+\frac{Y}{X}}{1+\frac{Y}{X}},\\
+      X \frac{\mathrm{d}u}{\mathrm{d}X}&=-\frac{2+u}{1+u}-u,\\
+      -\frac{u+1}{u^{2}+2u+2}\mathrm{d}u&=\frac{\mathrm{d}X}{X},\\
+      2x^{2}+2xy+y^{2}-8x-2y&=C
+    \end{aligned}
+    \]
+  \section{一阶线性微分方程}
+    \subsection{原本线性}
+      对于
+      \[
+      \begin{aligned}
+        \frac{\mathrm{d}y}{\mathrm{d}x}+P\left(x\right)y=Q\left(x\right),
+      \end{aligned}
+      \]
+      $Q\left(x\right)=0$的解$y=Ce^{-\int P\left(x\right)\mathrm{d}x}$
+      告诉我们若将$C$视为函数, 则右侧部分能消掉$P\left(x\right)y$项.
+      为了在通用的情况下也消除掉这一项, 不妨作换元
+      \[
+      \begin{aligned}
+        y=ue^{-\int P\left(x\right)\mathrm{d}x},
+      \end{aligned}
+      \]
+      那么首先$Q\left(x\right)=0$时$u=C$,
+      并且
+      \[
+      \begin{aligned}
+        \frac{\mathrm{d}y}{\mathrm{d}x}&=u^{\prime}e^{-\int P\left(x\right)\mathrm{d}x}-uP\left(x\right)e^{-\int P\left(x\right)\mathrm{d}x},
+      \end{aligned}
+      \]
+      代入原微分方程, 会发现$uP\left(x\right)e^{-\int P\left(x\right)\mathrm{d}x}$
+      真的被消掉了, 因此
+      \[
+      \begin{aligned}
+        u^{\prime}e^{-\int P\left(x\right)\mathrm{d}x}&=Q\left(x\right),
+      \end{aligned}
+      \]
+      最终
+      \[
+      \begin{aligned}
+        u&=\int Q\left(x\right)e^{\int P\left(x\right)\mathrm{d}x}\mathrm{d}x+C,\\
+        y&=Ce^{-\int P\left(x\right)\mathrm{d}x}+e^{-\int P\left(x\right)\mathrm{d}x}\int Q\left(x\right)e^{\int P\left(x\right)\mathrm{d}x}\mathrm{d}x.
+      \end{aligned}
+      \]
+
+      为了方便记忆, 可以考虑着重记忆$y$到$u$的换元方式 (这是为了消掉$P\left(x\right)y$项),
+      以及换元后乘积求导只有$u^{\prime}$项被保留的事实 (另一半用来消掉$P\left(x\right)y$项),
+      就能较快推出最后的结果.
+
+      例如对
+      \[
+      \begin{aligned}
+        \frac{\mathrm{d}y}{\mathrm{d}x}-\frac{2y}{x+1}=\left(x+1\right)^{\frac{5}{2}},
+      \end{aligned}
+      \]
+      那么关键步骤为令
+      \[
+      \begin{aligned}
+        y=u\left(x+1\right)^{2},
+      \end{aligned}
+      \]
+      以及代入消除后
+      \[
+      \begin{aligned}
+        u^{\prime}=\sqrt{x+1},
+      \end{aligned}
+      \]
+      因此
+      \[
+      \begin{aligned}
+        y=\left(x+1\right)^{2}\left(\frac{2}{3}\left(x+1\right)^{\frac{3}{2}}+C\right).
+      \end{aligned}
+      \]
+    \subsection{伯努利方程}
+      方程
+      \[
+      \begin{aligned}
+        \frac{\mathrm{d}y}{\mathrm{d}x}+P\left(x\right)y=Q\left(x\right)y^{n} && \left(n\neq 0, 1\right)
+      \end{aligned}
+      \]
+      是伯努利方程,
+      若要转化成线性方程,
+      考虑将右侧形式统一化, 变为
+      \[
+      \begin{aligned}
+        y^{-n}\frac{\mathrm{d}y}{\mathrm{d}x}+P\left(x\right)y^{1-n}=Q\left(x\right),
+      \end{aligned}
+      \]
+      再令$k=1-n$即可.
+
+  \section{可降阶的高阶微分方程}
+    \subsection{单个高阶导}
+      对于
+      \[
+      \begin{aligned}
+        y^{(n)}=f\left(x\right),
+      \end{aligned}
+      \]
+      只要对右侧不断积分即可.
+
+    \subsection{两项阶数相邻}
+      对于
+      \[
+      \begin{aligned}
+        y^{\prime\prime}=f\left(x, y^{\prime}\right),
+      \end{aligned}
+      \]
+      按照正常的思路解出$y^{\prime}$后再算$y$即可.
+
+  \section{高阶线性微分方程}
+    对于线性微分方程, 可以类比线性代数, 
+    得到齐次方程通解具备线性, 非齐次方程的特解和齐次方程解空间基底均正交,
+    即设齐次方程解空间基底为$y_1, y_2$, 非齐次方程特解为$y^{*}$,
+    那么
+    \[
+    \begin{aligned}
+      y=C_1y_1+C_2y_2+y^{*}.
+    \end{aligned}
+    \]
+    
+    在求出齐次方程解空间基底后, 依然可以采用常数变易法,
+    例如对
+    \[
+    \begin{aligned}
+      y^{\prime\prime}-2y^{\prime}+y=0,
+    \end{aligned}
+    \]
+    已知齐次方程解空间基底为$y_1=e^{x}$,
+    那么令$y=e^{x}u, y^{\prime}=e^{x}\left(u^{\prime}+u\right), y^{\prime\prime}=e^{x}\left(u^{\prime\prime}+2u^{\prime}+u\right)$,
+    由于保证消掉$y$的低阶导, 我们得到
+    \[
+    \begin{aligned}
+      e^{x}u^{\prime\prime}=\frac{1}{x}e^{x},
+    \end{aligned}
+    \]
+    因此$u=C_1+C_2x+x \ln \left| x \right|$.
+
+  \section{常系数齐次线性微分方程}
+    对于
+    \[
+    \begin{aligned}
+      y^{\prime\prime}+py^{\prime}+qy=0,
+    \end{aligned}
+    \]
+    不妨令$y=e^{rx}$,
+    那么
+    \[
+    \begin{aligned}
+      \left(r^{2}+p r+q\right)e^{rx}=0,
+    \end{aligned}
+    \]
+    即
+    \[
+    \begin{aligned}
+      r^{2}+p r+q=0.
+    \end{aligned}
+    \]
+    
+    对于能解出两个根的情况, 直接代入即可,
+    其中如果是复数要运用公式
+    \[
+    \begin{aligned}
+      e^{\left(\alpha+\beta i\right)x}=e^{\alpha x}\left(\cos \beta x+i \sin \beta x\right)
+    \end{aligned}
+    \]
+    变形得到最终答案.
+
+    对于重根, 使用常数变易法设$y=e^{rx}u\left(x\right)$,
+    那么
+    \[
+    \begin{aligned}
+      \left(u^{\prime\prime}+2ru^{\prime}+r^{2}u\right)+p\left(u^{\prime}+ru\right)+qu=0,
+    \end{aligned}
+    \]
+    由于重根, 化简得$u^{\prime\prime}=0$, 而$u$不为常数,
+    则令$u=x$即可. 注意这里采用$u=x+1$也可以, 而且可能更像 (但不是) 指数函数退化.
+
+    例如对于有阻尼振动, 我们有
+    \[
+    \begin{aligned}
+      x^{\prime\prime}+2nx^{\prime}+k^{2}x=0
+    \end{aligned}
+    \]
+    特征方程根为
+    \[
+    \begin{aligned}
+      -n \pm \sqrt{n^{2}-k^{2}},
+    \end{aligned}
+    \]
+    那么在小阻尼$n<k$时, 令$\omega=\sqrt{k^{2}-n^{2}}$, 那么
+    \[
+    \begin{aligned}
+      x=e^{-nt}\left(x_0 \cos \omega t + \frac{v_0+nx_0}{\omega}\sin \omega t\right),
+    \end{aligned}
+    \]
+    令
+    \[
+    \begin{aligned}
+      x_0=A \sin \varphi, &&
+      \frac{v_0+nx_0}{\omega}=A \cos \varphi \left(0\le \varphi \le 2\pi\right),
+    \end{aligned}
+    \]
+    那么
+    \[
+    \begin{aligned}
+      x=Ae^{-nt}\sin\left(\omega t+\varphi\right),
+    \end{aligned}
+    \]
+    其中
+    \[
+    \begin{aligned}
+      A=\sqrt{x_0^{2}+\frac{\left(x_0+nx_0\right)^{2}}{\omega^{2}}},&&
+      \tan \varphi = \frac{x_0\omega}{v_0+nx_0}.
+    \end{aligned}
+    \]
+
+    在临界阻尼$n=k$时, 特征方程重根, 因此结果为
+    \[
+    \begin{aligned}
+      x=e^{-nt}\left(x_0+\left(v_0+nx_0\right)t\right).
+    \end{aligned}
+    \]
+    
+    在大阻尼$n>k$时, 特征方程有两负根, 即
+    \[
+    \begin{aligned}
+      x=C_1e^{-\left(n-\sqrt{n^{2}-k^{2}}\right)t}+C_2e^{-\left(n+\sqrt{n^{2}-k^{2}}\right)t}.
+    \end{aligned}
+    \]
+    
+    对于更多元的情况, 可能出现更多重根, 这时堆叠$x$的幂即可.
+    
+  \section{常系数非齐次线性微分方程}
+    正如前面所提到, 采用常数变易法 (但是教材上变成了待定系数法) 即可.
+  \section{欧拉方程}
+    对于
+    \[
+    \begin{aligned}
+      x^{n}y^{(n)}+p_1x^{n-1}y^{(n-1)}+\cdots +p_{n-1}xy^{\prime}+p_ny=f\left(x\right),
+    \end{aligned}
+    \]
+    想办法令$\frac{\mathrm{d}y}{\mathrm{d}x}=\frac{1}{x}\frac{\mathrm{d}y}{\mathrm{d}t}$,
+    即$t=\ln x$即可.
+
+    注意到在此之后
+    \[
+    \begin{aligned}
+      x^{k}y^{(k)}=D\left(D-1\right)\cdots \left(D-k+1\right)y.
+    \end{aligned}
+    \]
+  \section{常系数线性微分方程组}
+    通过消元变成前面学过的即可.
+\end{document}
